@@ -1,27 +1,9 @@
-import { useEffect, useState } from "react";
 function Loading() {
     return (
-        <>
-            <div style={styles.loadingOverlay}>
-            <div className="spinner"></div>
-            <p style={{ color: "white", marginTop: "10px" }}>Memproses data...</p>
-            </div>
-        </>
+        <div className="fixed inset-0 bg-gray-900 bg-opacity-80 backdrop-blur-sm flex justify-center items-center z-50">
+            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500"></div>
+        </div>
     );
 }
-
-const styles = {
-  // Style Loading
-    loadingOverlay: {
-        position: "fixed",
-        top: 0, left: 0, right: 0, bottom: 0,
-        backgroundColor: "black",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        zIndex: 2000
-    }
-};
 
 export default Loading;

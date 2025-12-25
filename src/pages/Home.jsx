@@ -24,31 +24,46 @@ const Home = () => {
     };
 
     return (
-        <div>
-        {loading && <Loading />}
+        <div className="bg-gray-900 text-gray-100 min-h-screen font-sans">
+      <header className="border-b border-gray-700 bg-gray-900/50 backdrop-blur-sm sticky top-0 z-10">
+        <div className="max-w-7xl mx-auto py-6 px-6">
+          <h1 className="text-3xl font-bold tracking-tighter bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">
+            TechSphere
+          </h1>
+        </div>
+      </header>
+      <main className="max-w-7xl mx-auto py-10 px-6">
+        <div className="mb-16">
+          <h2 className="text-2xl font-semibold text-gray-300 mb-5">Share Your Insight</h2>
+          <PostForm
+              values={form}
+              onChange={onChange}
+              onSubmit={submit}
+              isEditing={!!editing}
+          />
+        </div>
 
-        <PostForm
-            values={form}
-            onChange={onChange}
-            onSubmit={submit}
-        />
-
-        {posts.map(post => (
-            <PostCard
-            key={post.id}
-            post={post}
-            onEdit={p => {
-                setEditing(p);
-                setForm(p);
-            }}
-            onDelete={deletePost}
-            />
-        ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {posts.map(post => (
+              <PostCard
+                  key={post.id}
+                  post={post}
+                  onEdit={p => {
+                    setEditing(p);
+                    setForm(p);
+                  }}
+                  onDelete={deletePost}
+              />
+          ))}
+        </div>
 
         <PostModal open={!!editing} onClose={() => setEditing(null)}>
-            <PostForm values={form} onChange={onChange} onSubmit={submit} />
+            <PostForm values={form} onChange={onChange} onSubmit={submit} isEditing={!!editing} />
         </PostModal>
-        </div>
+
+        {loading && <Loading />}
+      </main>
+    </div>
     );
 };
 
