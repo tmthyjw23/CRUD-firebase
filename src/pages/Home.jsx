@@ -27,8 +27,8 @@ const Home = () => {
         <div className="bg-gray-900 text-gray-100 min-h-screen font-sans">
       <header className="border-b border-gray-700 bg-gray-900/50 backdrop-blur-sm sticky top-0 z-10">
         <div className="max-w-7xl mx-auto py-6 px-6">
-          <h1 className="text-3xl font-bold tracking-tighter bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">
-            TechSphere
+          <h1 className="text-3xl font-bold tracking-tighter bg-linear-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">
+            tiMotion
           </h1>
         </div>
       </header>

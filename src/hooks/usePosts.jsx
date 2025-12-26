@@ -1,72 +1,44 @@
 import { useEffect, useState } from "react";
 import {
-    fetchPosts,
-    createPost,
-    updatePostById,
-    deletePostById
-} from "../services/posts.service";
+    getPosts,
+    addPost,
+    updatePost,
+    deletePost
+} from "../services/posts.firebase";
 
 const usePosts = () => {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
 
     const loadPosts = async () => {
         setLoading(true);
-        try {
-        const res = await fetchPosts();
-        setPosts(res.data);
-        } catch {
-        setError("Gagal memuat data");
-        } finally {
+        const data = await getPosts();
+        setPosts(data);
         setLoading(false);
-        }
     };
 
-    const addPost = async (post) => {
-        setLoading(true);
-        try {
-        const res = await createPost(post);
-        setPosts(prev => [...prev, res.data]);
-        } finally {
-        setLoading(false);
-        }
+    const create = async (post) => {
+        const newPost = await addPost(post);
+        setPosts(prev => [...prev, newPost]);
     };
 
-    const updatePost = async (id, post) => {
-        setLoading(true);
-        try {
-        const res = await updatePostById(id, post);
+    const update = async (id, post) => {
+        await updatePost(id, post);
         setPosts(prev =>
-            prev.map(p => (p.id === id ? res.data : p))
+        prev.map(p => (p.id === id ? { ...p, ...post } : p))
         );
-        } finally {
-        setLoading(false);
-        }
     };
 
-    const deletePost = async (id) => {
-        setLoading(true);
-        try {
-        await deletePostById(id);
+    const remove = async (id) => {
+        await deletePost(id);
         setPosts(prev => prev.filter(p => p.id !== id));
-        } finally {
-        setLoading(false);
-        }
     };
 
     useEffect(() => {
         loadPosts();
     }, []);
 
-    return {
-        posts,
-        loading,
-        error,
-        addPost,
-        updatePost,
-        deletePost
-    };
+    return { posts, loading, create, update, remove };
 };
 
 export default usePosts;
