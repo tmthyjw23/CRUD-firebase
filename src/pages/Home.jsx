@@ -6,7 +6,7 @@ import PostCard from "../components/PostCard";
 import Loading from "../components/Loading";
 
 const Home = () => {
-    const { posts, loading, addPost, updatePost, deletePost } = usePosts();
+    const {  posts, loading, create, update, remove } = usePosts();
 
     const [form, setForm] = useState({ title: "", body: "", author: "" });
     const [editing, setEditing] = useState(null);
@@ -16,8 +16,8 @@ const Home = () => {
 
     const submit = () => {
         editing
-        ? updatePost(editing.id, form)
-        : addPost(form);
+        ? update(editing.id, form)
+        : create(form);
 
         setEditing(null);
         setForm({ title: "", body: "", author: "" });
@@ -52,7 +52,7 @@ const Home = () => {
                     setEditing(p);
                     setForm(p);
                   }}
-                  onDelete={deletePost}
+                  onDelete={remove}
               />
           ))}
         </div>
